@@ -1,1 +1,1 @@
-$("p").hide();
+//No content currently
