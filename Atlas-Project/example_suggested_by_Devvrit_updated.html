@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!--<link type="text/css" rel="stylesheet" href="css/custom.css"/>-->
+</head>
+<body>
+<svg width="960" height="600"></svg>
+
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src='http://code.jquery.com/jquery-latest.js'></script>
+
+<script>
+let dataset = {
+                'nodes': [
+                {'name': 'CIRCULAR MOTION', 'description': 'CIRCULAR MOTION', 'label': 'LO', 'url': '', 'level': 1},
+                {'name': 'MOTION', 'description': 'MOTION', 'label': 'LO', 'url': '', 'level': 1},
+                {'name': 'DD1', 'description': 'DD1', 'label': 'Resource', 'level': 2, 'url': 'uurl1'},
+                {'name': 'DD4', 'description': 'DD4', 'label': 'Resource', 'level': 2, 'url': 'uurl4'},
+                {'name': 'DD3', 'description': 'DD3', 'label': 'Resource', 'level': 2, 'url': 'uurl3'},
+                {'name': 'UNITS', 'description': 'UNITS', 'label': 'LO', 'url': '', 'level': 1},
+                {'name': 'D3', 'description': 'D3', 'label': 'Resource', 'level': 2, 'url': 'url3'},
+                {'name': 'D2', 'description': 'D2', 'label': 'Resource', 'level': 2, 'url': 'url2'},
+                {'name': 'D1', 'description': 'D1', 'label': 'Resource', 'level': 2, 'url': 'url1'},
+                {'name': 'LINEAR MOTION', 'description': 'LINEAR MOTION', 'label': 'LO', 'url': '', 'level': 1},
+                {'name': 'DD2', 'description': 'DD2', 'label': 'Resource', 'level': 2, 'url': 'uurl2'}],
+
+                'links': [{'source': 1, 'target': 0},
+                {'source': 1, 'target': 0},
+                {'source': 1, 'target': 0},
+                {'source': 2, 'target': 0},
+                {'source': 3, 'target': 0},
+                {'source': 4, 'target': 0},
+                {'source': 5, 'target': 1},
+                {'source': 5, 'target': 1},
+                {'source': 5, 'target': 1},
+                {'source': 6, 'target': 1},
+                {'source': 7, 'target': 1},
+                {'source': 8, 'target': 1},
+                {'source': 1, 'target': 9},
+                {'source': 1, 'target': 9},
+                {'source': 10, 'target': 9},
+                {'source': 2, 'target': 9}]
+              }
+// var nodes = [
+//   { id: "mammal", group: 0, label: "Mammals", level: 1 },
+//   { id: "dog"   , group: 0, label: "Dogs"   , level: 2 },
+//   { id: "cat"   , group: 0, label: "Cats"   , level: 2 },
+//   { id: "fox"   , group: 0, label: "Foxes"  , level: 2 },
+//   { id: "elk"   , group: 0, label: "Elk"    , level: 2 },
+//   { id: "insect", group: 1, label: "Insects", level: 1 },
+//   { id: "ant"   , group: 1, label: "Ants"   , level: 2 },
+//   { id: "bee"   , group: 1, label: "Bees"   , level: 2 },
+//   { id: "fish"  , group: 2, label: "Fish"   , level: 1 },
+//   { id: "carp"  , group: 2, label: "Carp"   , level: 2 },
+//   { id: "pike"  , group: 2, label: "Pikes"  , level: 2 }
+// ]
+// var links = [
+// 	{ target: 0, source: 1 , strength: 0.7 },
+// 	{ target: 0, source: 2 , strength: 0.7 },
+//   { target: 0, source: 3 , strength: 0.7 },
+//   { target: 0, source: 4 , strength: 0.7 },
+//   { target: 5, source: 6 , strength: 0.7 },
+//   { target: 5, source: 7 , strength: 0.7 },
+//   { target: 8  , source: 9, strength: 0.7 },
+//   { target: 8  , source: 10, strength: 0.7 },
+//   { target: 2   , source: 4 , strength: 0.1 },
+//   { target: 9  , source: 6 , strength: 0.1 },
+//   { target: 4   , source: 7 , strength: 0.1 },
+//   { target: 1   , source: 2 , strength: 0.1 },
+//   { target: 3   , source: 6 , strength: 0.1 },
+// 	{ target: 10  , source: 2 , strength: 0.1 }
+// ]
+function getNodeColor(node) {
+  return node.level === 1 ? 'red' : 'gray'
+}
+var width = window.innerWidth
+var height = window.innerHeight
+var time1 = 0, time2 = 0, time3 = 0, time4 = 0, toggle = true, mouseState = "leave";
+
+//an attempt to add zoom effect but unsuccessful
+var zoom = d3.behavior.zoom()
+    .scaleExtent([1, 10])
+    .size([width,height])
+    .on("zoom",zoomed);
+
+function zoomed() {
+  container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
+
+var svg = d3.select('svg')
+svg.attr('width', width).attr('height', height)
+   .append("g")
+   .call(zoom);
+
+// simulation setup with all forces
+// var linkForce = d3
+//   .forceLink()
+//   .id(function (link) { return link.id })
+//   .strength(function (link) { return link.strength })
+// var simulation = d3
+//   .forceSimulation()
+//   .force('link', linkForce)
+//   .force('charge', d3.forceManyBody().strength(-120))
+//   .force('center', d3.forceCenter(width / 2, height / 2))
+//let org_color_node, org_color_link;
+
+var force = d3.layout.force()
+				.nodes(dataset.nodes)
+				.links(dataset.links)
+				.linkDistance(60)
+				//.friction(0.5)
+				.charge(-500)
+				.size([width, height])
+				.start();
+
+var linkElements = svg.append("g")
+  .attr("class", "links")
+  .selectAll("line")
+  .data(dataset.links)
+  .enter().append("line")
+    .attr("stroke-width",2)
+    .attr("stroke","rgba(50, 50, 50, 0.2)")
+    .attr("data-orgcolor","rgba(50, 50, 50, 0.2)")
+    .attr('x1', function (link) { return link.source.x })
+    .attr('y1', function (link) { return link.source.y })
+    .attr('x2', function (link) { return link.target.x })
+    .attr('y2', function (link) { return link.target.y })
+    .attr("pointer-events","none")
+
+var nodeElements = svg.append("g")
+  .attr("class", "nodes")
+  .selectAll("circle")
+  .data(dataset.nodes)
+  .enter().append("circle")
+    .attr("r",18)
+    .attr("fill", getNodeColor)
+    .attr("data-orgcolor",getNodeColor)
+    .on("mousedown",function(){
+      time3 = new Date().getTime();
+      console.log("time3 = "+time3);
+    })
+    .on("mouseup",function(){
+      time4 = new Date().getTime();
+      console.log("time4 = "+time4);
+    })
+    .on("mouseover",function(){
+          // t1 = new Date().getTime();
+          if(mouseState == "leave"){
+            d3.selectAll("circle")
+              .transition()
+              .duration(100)
+              .attr("opacity","0.2");
+            d3.selectAll("text")
+              .transition()
+              .duration(100)
+              .attr("opacity","0.2");
+            d3.selectAll("line")
+              .transition()
+              .duration(100)
+              .attr("opacity","0.2");
+            d3.select(this)
+              .transition()
+              .duration(100)
+              .attr("r",22)
+              .attr("opacity","1")
+              .attr("cursor","pointer");
+            //console.log("mouseover");
+            var x = d3.select(this).attr("cx");
+            var y = d3.select(this).attr("cy");
+
+            d3.select("text[x='"+x+"'][y='"+y+"']")
+              .transition()
+              .duration(100)
+              .style("font-size",18)
+              .style("font-weight","bold")
+              .attr("opacity","1");
+
+            var arrX = d3.selectAll("line[x2='"+x+"'][y2='"+y+"']")
+                    			.each(function(){
+                    				var x1 = d3.select(this).attr("x1");
+                    				var y1 = d3.select(this).attr("y1");
+                            //org_color_link = d3.select(this).attr("stroke");
+                            d3.select(this)
+                              .transition()
+                              .duration(100)
+                              .attr("stroke-width",4)
+                              .attr("stroke","blue")
+                              .attr("opacity","1");
+                    				//org_color_node = d3.select("circle[cx='"+x1+"'][cy='"+y1+"']").attr("fill");
+                    				d3.select("circle[cx='"+x1+"'][cy='"+y1+"']")
+                              .transition()
+                              .duration(100)
+                              .attr("r",22)
+                              .attr("fill","green")
+                              .attr("opacity","1");
+
+                            d3.select("text[x='"+x1+"'][y='"+y1+"']")
+                              .transition()
+                              .duration(100)
+                              .style("font-size",18)
+                              .style("font-weight","bold")
+                              .attr("opacity","1");
+                    			});
+
+              window.setTimeout(function(){
+                mouseState = "over";
+                console.log("mouseState = "+mouseState);},100);
+
+            }
+    })
+    .on("mouseleave",function(){
+
+          // t2 = new Date().getTime();
+          // console.log(t2-t1);
+          if(mouseState == "over"){
+            d3.selectAll("circle")
+              .transition()
+              .duration(100)
+              .attr("opacity","1");
+            d3.selectAll("text")
+              .transition()
+              .duration(100)
+              .attr("opacity","1");
+            d3.selectAll("line")
+              .transition()
+              .duration(100)
+              .attr("opacity","1");
+            d3.select(this)
+              .transition()
+              .duration(100)
+              .attr("r",18)
+              .attr("fill",function(){
+                //console.log(d3.select(this).attr("data-orgcolor"));
+                return d3.select(this).attr("data-orgcolor");
+              });
+            //console.log("mouseleave"+d3.select(this).attr("data-orgcolor"));
+  	        var x = d3.select(this).attr("cx");
+            var y = d3.select(this).attr("cy");
+
+            d3.select("text[x='"+x+"'][y='"+y+"']")
+              .transition()
+              .duration(100)
+              .style("font-size",14)
+              .style("font-weight","normal");
+
+            var arrX = d3.selectAll("line[x2='"+x+"'][y2='"+y+"']")
+  			                 .each(function(){
+                    				var x1 = d3.select(this).attr("x1");
+                    				var y1 = d3.select(this).attr("y1");
+                            d3.select(this)
+                              .transition()
+                              .duration(100)
+                              .attr("stroke-width",2)
+                              .attr("stroke",function(){
+                                //console.log(d3.select(this).attr("data-orgcolor"));
+                                return d3.select(this).attr("data-orgcolor");
+                              });
+                    				d3.select("circle[cx='"+x1+"'][cy='"+y1+"']")
+                              .transition()
+                              .duration(100)
+                              .attr("r",18)
+                              .attr("fill",function(){
+                                //console.log(d3.select(this).attr("data-orgcolor"));
+                                return d3.select(this).attr("data-orgcolor");
+                              });
+                            d3.select("text[x='"+x1+"'][y='"+y1+"']")
+                              .transition()
+                              .duration(100)
+                              .style("font-size",14)
+                              .style("font-weight","normal");
+                    		 });
+
+              window.setTimeout(function(){
+                mouseState = "leave";
+                console.log("mouseState = "+mouseState);},100);
+            }
+    })
+    .on("click",function(d){
+      if(toggle == true){
+        time1 = new Date().getTime();
+        console.log("time1 = "+time1);
+      }
+      else{
+        time2 = new Date().getTime();
+        console.log("time2 = "+time2);
+      }
+
+      window.setTimeout(function(){
+        if(time1 > time2){
+          if(time1 - time2 > 500 && time4 - time3 < 500){
+            window.open(d.url);
+          }
+        }
+        else {
+          if(time2 - time1 > 500 && time4 - time3 < 500){
+            window.open(d.url);
+          }
+        }
+      },500);
+
+      toggle = !toggle;
+    })
+    .on("dblclick",function(){
+          var xDisp = width/2 - parseFloat(d3.select(this).attr("cx"));
+          var yDisp = height/2 - parseFloat(d3.select(this).attr("cy"));
+
+          d3.selectAll('g')
+            .attr("transform","translate("+xDisp+","+yDisp+")");
+
+          d3.selectAll("circle")
+            .each(function(){
+              d3.select(this)
+                .transition()
+                .duration(100)
+                .attr("r",18)
+                .attr("fill",function(){
+                  //console.log(d3.select(this).attr("data-orgcolor"));
+                  return d3.select(this).attr("data-orgcolor");
+                });
+            })
+
+          d3.selectAll("line")
+            .each(function(){
+              d3.select(this)
+                .transition()
+                .duration(100)
+                .attr("stroke-width",2)
+                .attr("stroke",function(){
+                  //console.log(d3.select(this).attr("data-orgcolor"));
+                  return d3.select(this).attr("data-orgcolor");
+                });
+            })
+
+          d3.selectAll("text")
+            .transition()
+            .duration(100)
+            .style("font-size",14)
+            .style("font-weight","normal");
+
+    })
+    //drawback of 'adjacent nodes turning green' feature
+    //is that adjacent nodes of the hovered node must have the same color, otherwise this won't work.
+    //Another drawback of all events is that if another event is triggered before the current one
+    //finishes then the later event occurs and the current one pauses midway.
+    .html(function(d){
+      return "<title>"+`
+      name : ${d.name}
+      description : ${d.description}
+      label : ${d.label}
+      level : ${d.level}
+      `+"</title>";
+    })
+    .call(force.drag);
+var textElements = svg.append("g")
+  .attr("class", "texts")
+  .selectAll("text")
+  .data(dataset.nodes)
+  .enter().append("text")
+    .text(function (node) { return  node.name.substring(0, 3) })
+    .style("fill", "white")
+    .attr("font-size", 14)
+    .attr("dx", 0)
+    .attr("dy", ".35em")
+	  .attr("text-anchor","middle")
+    .attr("pointer-events","none")
+force.on("tick", function() {
+  nodeElements
+    .attr('cx', function (node) { return node.x })
+    .attr('cy', function (node) { return node.y })
+  textElements
+    .attr('x', function (node) { return node.x })
+    .attr('y', function (node) { return node.y })
+  linkElements
+    .attr('x1', function (link) { return link.source.x })
+    .attr('y1', function (link) { return link.source.y })
+    .attr('x2', function (link) { return link.target.x })
+    .attr('y2', function (link) { return link.target.y })
+});
+</script>
+</body>
+</html>
