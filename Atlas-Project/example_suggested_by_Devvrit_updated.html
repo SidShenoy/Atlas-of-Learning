@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <!--<link type="text/css" rel="stylesheet" href="css/custom.css"/>-->
+  <link type="text/css" rel="stylesheet" href="css/custom.css"/>
 </head>
 <body>
 <svg width="960" height="600"></svg>
@@ -89,7 +89,10 @@ function zoomed() {
 }
 
 var svg = d3.select('svg')
-svg.attr('width', width).attr('height', height)
+
+svg.attr('width', width)
+   .attr('height', height)
+   .style("position","relative")
    .append("g")
    .call(zoom);
 
@@ -116,6 +119,7 @@ var force = d3.layout.force()
 
 var linkElements = svg.append("g")
   .attr("class", "links")
+  //.style('z-index',3)
   .selectAll("line")
   .data(dataset.links)
   .enter().append("line")
@@ -130,6 +134,7 @@ var linkElements = svg.append("g")
 
 var nodeElements = svg.append("g")
   .attr("class", "nodes")
+  //.style('z-index',3)
   .selectAll("circle")
   .data(dataset.nodes)
   .enter().append("circle")
@@ -192,7 +197,12 @@ var nodeElements = svg.append("g")
                               .transition()
                               .duration(100)
                               .attr("r",22)
-                              .attr("fill","green")
+                              .attr("fill",function(){
+                                if(d3.select(this).attr("data-orgcolor") == "red")
+                                  return "red";
+                                else
+                                  return "green";
+                              })
                               .attr("opacity","1");
 
                             d3.select("text[x='"+x1+"'][y='"+y1+"']")
@@ -277,29 +287,36 @@ var nodeElements = svg.append("g")
             }
     })
     .on("click",function(d){
-      if(toggle == true){
-        time1 = new Date().getTime();
-        console.log("time1 = "+time1);
-      }
-      else{
-        time2 = new Date().getTime();
-        console.log("time2 = "+time2);
-      }
+      //PREVIOUS FUNCTIONALITY
+      // if(toggle == true){
+      //   time1 = new Date().getTime();
+      //   console.log("time1 = "+time1);
+      // }
+      // else{
+      //   time2 = new Date().getTime();
+      //   console.log("time2 = "+time2);
+      // }
+      //
+      // window.setTimeout(function(){
+      //   if(time1 > time2){
+      //     if(time1 - time2 > 500 && time4 - time3 < 500){
+      //       window.open(d.url);
+      //     }
+      //   }
+      //   else {
+      //     if(time2 - time1 > 500 && time4 - time3 < 500){
+      //       window.open(d.url);
+      //     }
+      //   }
+      // },500);
+      //
+      // toggle = !toggle;
 
-      window.setTimeout(function(){
-        if(time1 > time2){
-          if(time1 - time2 > 500 && time4 - time3 < 500){
-            window.open(d.url);
-          }
-        }
-        else {
-          if(time2 - time1 > 500 && time4 - time3 < 500){
-            window.open(d.url);
-          }
-        }
-      },500);
-
-      toggle = !toggle;
+      //NEW FUNCTIONALITY
+      d3.selectAll("svg g:not(.overlay)")
+        .classed("on", false)
+        .classed("off", true);
+      d3.select("foreignObject.overlay").style("display","block");
     })
     .on("dblclick",function(){
           var xDisp = width/2 - parseFloat(d3.select(this).attr("cx"));
@@ -352,8 +369,12 @@ var nodeElements = svg.append("g")
       `+"</title>";
     })
     .call(force.drag);
+
+//var overlay_html; //html for 'overlay' element
+
 var textElements = svg.append("g")
   .attr("class", "texts")
+  //.style('z-index',3)
   .selectAll("text")
   .data(dataset.nodes)
   .enter().append("text")
@@ -363,7 +384,15 @@ var textElements = svg.append("g")
     .attr("dx", 0)
     .attr("dy", ".35em")
 	  .attr("text-anchor","middle")
-    .attr("pointer-events","none")
+    .attr("pointer-events","none");
+
+var overlay = svg.append("foreignObject")
+                 .classed("overlay", true)
+                 .style("border",0)
+                 .append("xhtml:iframe")
+                 .classed("iframe",true)
+                 .attr("src","overlay.html");
+
 force.on("tick", function() {
   nodeElements
     .attr('cx', function (node) { return node.x })

@@ -1,0 +1,25 @@
+.overlay{
+  position: absolute;
+  y: 25%;
+  x: 25%;
+  width: 50%;
+  height: 50%;
+  z-index: 10;
+  background-color: #FFDAB9; /*dim the background*/
+  display: none;
+}
+
+.off {
+  pointer-events: none;
+}
+
+.on {
+  pointer-events: all;
+}
+
+.iframe {
+  display: block;
+  border: none;
+  height: 50vh;
+  width: 100%;
+}
