@@ -76,7 +76,7 @@ function getNodeColor(node) {
 }
 var width = window.innerWidth
 var height = window.innerHeight
-var time1 = 0, time2 = 0, time3 = 0, time4 = 0, toggle = true, mouseState = "leave";
+var time1 = 0, time2 = 0, time3 = 0, time4 = 0, toggle = true, mouseState = "leave", degree = 2;
 
 //an attempt to add zoom effect but unsuccessful
 var zoom = d3.behavior.zoom()
@@ -181,37 +181,47 @@ var nodeElements = svg.append("g")
               .style("font-weight","bold")
               .attr("opacity","1");
 
-            var arrX = d3.selectAll("line[x2='"+x+"'][y2='"+y+"']")
-                    			.each(function(){
-                    				var x1 = d3.select(this).attr("x1");
-                    				var y1 = d3.select(this).attr("y1");
-                            //org_color_link = d3.select(this).attr("stroke");
-                            d3.select(this)
-                              .transition()
-                              .duration(100)
-                              .attr("stroke-width",4)
-                              .attr("stroke","blue")
-                              .attr("opacity","1");
-                    				//org_color_node = d3.select("circle[cx='"+x1+"'][cy='"+y1+"']").attr("fill");
-                    				d3.select("circle[cx='"+x1+"'][cy='"+y1+"']")
-                              .transition()
-                              .duration(100)
-                              .attr("r",22)
-                              .attr("fill",function(){
-                                if(d3.select(this).attr("data-orgcolor") == "red")
-                                  return "red";
-                                else
-                                  return "green";
-                              })
-                              .attr("opacity","1");
+            var highlight = function(x,y,degree)
+                            {
+                              if(degree>=1)
+                              {
+                                d3.selectAll("line[x2='"+x+"'][y2='"+y+"']")
+                            			.each(function(){
+                            				var x1 = d3.select(this).attr("x1");
+                            				var y1 = d3.select(this).attr("y1");
+                                    //org_color_link = d3.select(this).attr("stroke");
+                                    d3.select(this)
+                                      .transition()
+                                      .duration(100)
+                                      .attr("stroke-width",4)
+                                      .attr("stroke","blue")
+                                      .attr("opacity","1");
+                            				//org_color_node = d3.select("circle[cx='"+x1+"'][cy='"+y1+"']").attr("fill");
+                            				d3.select("circle[cx='"+x1+"'][cy='"+y1+"']")
+                                      .transition()
+                                      .duration(100)
+                                      .attr("r",22)
+                                      .attr("fill",function(){
+                                        if(d3.select(this).attr("data-orgcolor") == "red")
+                                          return "red";
+                                        else
+                                          return "green";
+                                      })
+                                      .attr("opacity","1");
 
-                            d3.select("text[x='"+x1+"'][y='"+y1+"']")
-                              .transition()
-                              .duration(100)
-                              .style("font-size",18)
-                              .style("font-weight","bold")
-                              .attr("opacity","1");
-                    			});
+                                    d3.select("text[x='"+x1+"'][y='"+y1+"']")
+                                      .transition()
+                                      .duration(100)
+                                      .style("font-size",18)
+                                      .style("font-weight","bold")
+                                      .attr("opacity","1");
+
+                                    highlight(x1,y1,degree-1);
+                            			});
+                              }
+                            };
+
+              highlight(x,y,degree);
 
               window.setTimeout(function(){
                 mouseState = "over";
@@ -254,32 +264,42 @@ var nodeElements = svg.append("g")
               .style("font-size",14)
               .style("font-weight","normal");
 
-            var arrX = d3.selectAll("line[x2='"+x+"'][y2='"+y+"']")
-  			                 .each(function(){
-                    				var x1 = d3.select(this).attr("x1");
-                    				var y1 = d3.select(this).attr("y1");
-                            d3.select(this)
-                              .transition()
-                              .duration(100)
-                              .attr("stroke-width",2)
-                              .attr("stroke",function(){
-                                //console.log(d3.select(this).attr("data-orgcolor"));
-                                return d3.select(this).attr("data-orgcolor");
-                              });
-                    				d3.select("circle[cx='"+x1+"'][cy='"+y1+"']")
-                              .transition()
-                              .duration(100)
-                              .attr("r",18)
-                              .attr("fill",function(){
-                                //console.log(d3.select(this).attr("data-orgcolor"));
-                                return d3.select(this).attr("data-orgcolor");
-                              });
-                            d3.select("text[x='"+x1+"'][y='"+y1+"']")
-                              .transition()
-                              .duration(100)
-                              .style("font-size",14)
-                              .style("font-weight","normal");
-                    		 });
+              var dehighlight = function(x,y,degree)
+                              {
+                                if(degree>=1)
+                                {
+                                   d3.selectAll("line[x2='"+x+"'][y2='"+y+"']")
+              			                 .each(function(){
+                                				var x1 = d3.select(this).attr("x1");
+                                				var y1 = d3.select(this).attr("y1");
+                                        d3.select(this)
+                                          .transition()
+                                          .duration(100)
+                                          .attr("stroke-width",2)
+                                          .attr("stroke",function(){
+                                            //console.log(d3.select(this).attr("data-orgcolor"));
+                                            return d3.select(this).attr("data-orgcolor");
+                                          });
+                                				d3.select("circle[cx='"+x1+"'][cy='"+y1+"']")
+                                          .transition()
+                                          .duration(100)
+                                          .attr("r",18)
+                                          .attr("fill",function(){
+                                            //console.log(d3.select(this).attr("data-orgcolor"));
+                                            return d3.select(this).attr("data-orgcolor");
+                                          });
+                                        d3.select("text[x='"+x1+"'][y='"+y1+"']")
+                                          .transition()
+                                          .duration(100)
+                                          .style("font-size",14)
+                                          .style("font-weight","normal");
+
+                                        dehighlight(x1,y1,degree-1);
+                                			});
+                                  }
+                              };
+
+              dehighlight(x,y,degree);
 
               window.setTimeout(function(){
                 mouseState = "leave";
@@ -287,36 +307,25 @@ var nodeElements = svg.append("g")
             }
     })
     .on("click",function(d){
-      //PREVIOUS FUNCTIONALITY
-      // if(toggle == true){
-      //   time1 = new Date().getTime();
-      //   console.log("time1 = "+time1);
-      // }
-      // else{
-      //   time2 = new Date().getTime();
-      //   console.log("time2 = "+time2);
-      // }
-      //
-      // window.setTimeout(function(){
-      //   if(time1 > time2){
-      //     if(time1 - time2 > 500 && time4 - time3 < 500){
-      //       window.open(d.url);
-      //     }
-      //   }
-      //   else {
-      //     if(time2 - time1 > 500 && time4 - time3 < 500){
-      //       window.open(d.url);
-      //     }
-      //   }
-      // },500);
-      //
-      // toggle = !toggle;
+      if(toggle == true){
+        time1 = new Date().getTime();
+        console.log("time1 = "+time1);
+      }
+      else{
+        time2 = new Date().getTime();
+        console.log("time2 = "+time2);
+      }
 
-      //NEW FUNCTIONALITY
-      d3.selectAll("svg g:not(.overlay)")
-        .classed("on", false)
-        .classed("off", true);
-      d3.select("foreignObject.overlay").style("display","block");
+      window.setTimeout(function(){
+          if((time1 - time2 > 500 || time1 - time2 < (-500)) && time4 - time3 < 500){
+            d3.selectAll("svg g:not(.overlay)")
+              .classed("on", false)
+              .classed("off", true);
+            d3.select("foreignObject.overlay").style("display","block");
+          }
+      },500);
+
+      toggle = !toggle;
     })
     .on("dblclick",function(){
           var xDisp = width/2 - parseFloat(d3.select(this).attr("cx"));
@@ -385,6 +394,39 @@ var textElements = svg.append("g")
     .attr("dy", ".35em")
 	  .attr("text-anchor","middle")
     .attr("pointer-events","none");
+
+var degreeBox = svg.append("foreignObject")
+                   .classed("degreeBox", true)
+                   .append("xhtml:body");
+
+var showDegree = degreeBox.append("b")
+                          .classed("text",true)
+                          .text("Enter degree");
+
+degreeBox.append("br");
+
+degreeBox.append("input")
+.attr("type","number")
+.attr("min",1)
+.attr("step",1)
+.style("width","50px");
+
+degreeBox.append("br");
+
+degreeBox.append("input")
+.attr("type","button")
+.attr("value","apply")
+.on('click',function(){
+  var num = $('foreignObject.degreeBox input').val();
+  if(Number.isInteger(parseFloat(num)) && parseFloat(num)>0)
+  {
+    degree = parseInt(num);
+    showDegree.text("degree now is "+degree);
+  }
+  else {
+    showDegree.text("Invalid degree (must be a +ve Integer)");
+  }
+});
 
 var overlay = svg.append("foreignObject")
                  .classed("overlay", true)

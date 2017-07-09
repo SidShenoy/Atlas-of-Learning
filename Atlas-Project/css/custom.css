@@ -9,6 +9,17 @@
   display: none;
 }
 
+.degreeBox{
+  position: absolute;
+  y: 5%;
+  x: 85%;
+  width: 10%;
+  height: 15%;
+  z-index: 9;
+  background-color: #FFDAB9; /*dim the background*/
+  /*display: none;*/
+}
+
 .off {
   pointer-events: none;
 }
@@ -22,4 +33,8 @@
   border: none;
   height: 50vh;
   width: 100%;
+}
+
+.text{
+  font-family: sans-serif;
 }
