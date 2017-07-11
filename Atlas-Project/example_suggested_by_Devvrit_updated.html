@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link type="text/css" rel="stylesheet" href="css/custom.css"/>
 </head>
 <body>
@@ -81,20 +82,20 @@ var time1 = 0, time2 = 0, time3 = 0, time4 = 0, toggle = true, mouseState = "lea
 //an attempt to add zoom effect but unsuccessful
 var zoom = d3.behavior.zoom()
     .scaleExtent([1, 10])
-    .size([width,height])
     .on("zoom",zoomed);
 
 function zoomed() {
-  container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+  svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 }
 
 var svg = d3.select('svg')
 
 svg.attr('width', width)
    .attr('height', height)
+   .attr('viewBox','0 0 '+width+' '+height)
    .style("position","relative")
-   .append("g")
    .call(zoom);
+
 
 // simulation setup with all forces
 // var linkForce = d3
@@ -409,7 +410,7 @@ degreeBox.append("input")
 .attr("type","number")
 .attr("min",1)
 .attr("step",1)
-.style("width","50px");
+.style("width","4em");
 
 degreeBox.append("br");
 
@@ -430,10 +431,42 @@ degreeBox.append("input")
 
 var overlay = svg.append("foreignObject")
                  .classed("overlay", true)
-                 .style("border",0)
-                 .append("xhtml:iframe")
-                 .classed("iframe",true)
-                 .attr("src","overlay.html");
+                 .style("border",0);
+
+overlay.append("xhtml:head")
+       .append("link")
+       .attr("rel","stylesheet")
+       .attr("href","http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+var overlayBody = overlay.append("xhtml:body");
+
+overlayBody.append("i")
+           .classed("fa fa-window-close",true)
+           .attr("aria-hidden","true")
+           .style("float","right")
+           .style("background-color","white")
+           .on("mouseover", function(){
+              d3.select(this).style({ "background-color": "lightgray" });
+           })
+           .on("mouseout", function(){
+              d3.select(this).style({ "background-color": "white" });
+           })
+           .on("click", function(d){
+              d3.select(this)
+                .style({ "background-color": "gray" });
+              d3.selectAll("svg g:not(.overlay)")
+                .classed("off", false)
+                .classed("on", true);
+              d3.select("foreignObject.overlay").style("display","none");
+
+           });
+
+overlayBody.append("br");
+overlayBody.append("br");
+
+overlayBody.append("iframe")
+           .classed("iframe",true)
+           .attr("src","overlay.html");
 
 force.on("tick", function() {
   nodeElements

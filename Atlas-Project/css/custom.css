@@ -2,8 +2,8 @@
   position: absolute;
   y: 25%;
   x: 25%;
-  width: 50%;
-  height: 50%;
+  width: 50vw;
+  height: 62vh;
   z-index: 10;
   background-color: #FFDAB9; /*dim the background*/
   display: none;
@@ -13,8 +13,8 @@
   position: absolute;
   y: 5%;
   x: 85%;
-  width: 10%;
-  height: 15%;
+  width: 20vh;
+  height: 15vh;
   z-index: 9;
   background-color: #FFDAB9; /*dim the background*/
   /*display: none;*/
@@ -37,4 +37,5 @@
 
 .text{
   font-family: sans-serif;
+  font-size: 14px;
 }
