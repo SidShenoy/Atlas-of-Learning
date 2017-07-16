@@ -30,4 +30,4 @@ To check out a live example, visit http://bl.ocks.org/SidShenoy/e13385b034d90397
 
 # Documentation
 
-View the complete documentation [here](https://sidshenoy.github.io/Atlas-of-Learning/license/).
+View the complete documentation [here](https://sidshenoy.github.io/Atlas-of-Learning/).
