@@ -27,3 +27,7 @@ To check out a live example, visit http://bl.ocks.org/SidShenoy/e13385b034d90397
 2. Single-click and drag-drop are also distinguished by a similar time-gap as above. This means that if a user drags and drops a node in less than 500 msec, then it is considered a 'single-click' event.
 
 3. To complete a single 'mouseover' and 'mouseleave' successive pair event, a time-gap of 100 msec is used. This means that a 2 successive mouse-hovers on 2 different nodes will take place with the expected behaviour only if they differ by 100 msec. If not, unexpected behaviour may take place and the user is advised to refresh the page. 
+
+#Documentation
+
+View the complete documentation [here](https://sidshenoy.github.io/Atlas-of-Learning/license/).
