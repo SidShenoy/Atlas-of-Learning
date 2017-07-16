@@ -1,3 +1,10 @@
+/* We feel the names are self explanatory */
+
+.forZoom{
+  fill: none;
+  pointer-events: all;
+}
+
 .overlay{
   position: absolute;
   y: 25%;
@@ -5,7 +12,7 @@
   width: 50vw;
   height: 62vh;
   z-index: 10;
-  background-color: #FFDAB9; /*dim the background*/
+  background-color: #FFDAB9;
   display: none;
 }
 
@@ -13,19 +20,20 @@
   position: absolute;
   y: 5%;
   x: 85%;
-  width: 20vh;
-  height: 15vh;
+  width: 22vh;
+  height: 23vh;
   z-index: 9;
-  background-color: #FFDAB9; /*dim the background*/
-  /*display: none;*/
+  background-color: #FFDAB9;
 }
 
 .off {
   pointer-events: none;
+  opacity: 0.2;
 }
 
 .on {
   pointer-events: all;
+  opacity: 1;
 }
 
 .iframe {
