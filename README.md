@@ -2,9 +2,9 @@
 A graphical visualisation of a user's progress in learning, thereby creating a dynamic report card.
 
 # Technologies used
-1. django-python
+1. flask-python
 2. neo4j
-3. mongoDB
+3. docker
 4. d3.js
 5. html and CSS
 
@@ -12,9 +12,12 @@ A graphical visualisation of a user's progress in learning, thereby creating a d
 1. Hover fade.
 2. Hover highlight.
 3. Drag and drop.
-4. Single-click for page redirection to the current node's URL.
+4. Single-click to open an overlay in the current node's context.
 5. Double-click for centre alignment of the current node.
 6. Hover content box.
+7. Zoom in/out and pan checkbox.
+8. Checkbox to show/hide graph.
+9. Ability to change the global degree of all nodes (number of levels that will get highlighted upon hover).
 
 To check out a live example, visit http://bl.ocks.org/SidShenoy/e13385b034d903976f34083b87be8794.
 
