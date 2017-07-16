@@ -28,6 +28,6 @@ To check out a live example, visit http://bl.ocks.org/SidShenoy/e13385b034d90397
 
 3. To complete a single 'mouseover' and 'mouseleave' successive pair event, a time-gap of 100 msec is used. This means that a 2 successive mouse-hovers on 2 different nodes will take place with the expected behaviour only if they differ by 100 msec. If not, unexpected behaviour may take place and the user is advised to refresh the page. 
 
-#Documentation
+# Documentation
 
 View the complete documentation [here](https://sidshenoy.github.io/Atlas-of-Learning/license/).
