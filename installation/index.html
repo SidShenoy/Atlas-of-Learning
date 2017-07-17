@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Siddhant Shenoy">
+  <link rel="shortcut icon" href="../favicon.ico">
+  
+  <title>Installation Steps - Atlas of Learning</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Installation Steps";
+    var mkdocs_page_input_path = "installation.md";
+    var mkdocs_page_url = "/installation/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Atlas of Learning</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">About</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../defaults/">Defaults (Appearance)</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../force/">Defaults (Force Algorithm)</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../howToUse/">How to use the app?</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../large/">How does this app handle larger datasets?</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Installation Steps</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#installation-steps-using-docker">Installation steps using docker</a></li>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../license/">License</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Atlas of Learning</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Installation Steps</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/SidShenoy/Atlas-of-Learning/edit/master/docs/installation.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="installation-steps-using-docker">Installation steps using docker</h1>
+<p><code>1.</code> First, make sure docker is installed. If not click <a href="https://docs.docker.com/engine/installation/linux/ubuntu/">here</a></p>
+<p><code>2.</code> Now, create a new <em>docker network</em> using the following command:</p>
+<pre><code class="bash">$ docker network create -d bridge &lt;name of network&gt;
+</code></pre>
+
+<p>e.g.</p>
+<pre><code class="bash">$ docker network create -d bridge isolated_nw
+</code></pre>
+
+<p><code>3.</code> Download the <em>neo4j</em> image and run a container on it.</p>
+<p>e.g. Let the name of the container be 'neo4jCon'</p>
+<p><code>4.</code> Add the container to the network created in step <code>2.</code> using</p>
+<pre><code class="bash">$ docker network connect &lt;name of network&gt; &lt;name of container&gt;
+</code></pre>
+
+<p>e.g.</p>
+<pre><code class="bash">$ docker network connect isolated_nw neo4jCon
+</code></pre>
+
+<p><code>5.</code> Check if the container was successfully added to the network using</p>
+<pre><code class="bash">$ docker network inspect &lt;name of network&gt;
+</code></pre>
+
+<p>e.g.</p>
+<pre><code class="bash">$ docker network inspect isolated_nw
+</code></pre>
+
+<p>Something like the following should be displayed to indicate successful addition:</p>
+<p><img alt="inspect1" src="../inspect1.png" /></p>
+<p>In my case, I named the <strong>neo4j</strong> container as <code>Arnold5</code>.</p>
+<p>Make a note of the <code>IPv4Address</code> of the added container, in the above case, it is <code>172.25.0.2</code>. The <code>/16</code> can be ignored.</p>
+<p><code>6.</code> Create a new folder anywhere on your file system. Go to that folder using <code>cd</code>.</p>
+<p><code>7.</code> Inside the new folder paste the <em>Dockerfile</em> along with the actual project folder, which is <em>Atlas of Learning</em></p>
+<p>Now when <code>ls</code> is executed you should be able to see that there is one folder named <strong>Atlas of Learning</strong> and a file named <strong>Dockerfile</strong>.</p>
+<p><code>8.</code> Your neo4j container will serve a neo4j database. This database has a <code>USERNAME</code> and <code>PASSWORD</code>.</p>
+<p>Change these 2 values in the <code>Dockerfile</code> in lines 8 and 9.
+In my case they were 'neo4j' and 'HBCSE' respectively.</p>
+<pre><code>ENV NEO4J_USERNAME=neo4j
+ENV NEO4J_PASSWORD=HBCSE
+</code></pre>
+
+<p>Also take the <code>IPv4Address</code> we got in step <code>5.</code> and change the value in line 9.
+Append the port <code>:7474</code> to the above <code>IP</code>.</p>
+<p>e.g. In my case it was <code>172.25.0.2</code>. And after appending the final value is <code>172.25.0.2:7474</code>. Let the <code>http://</code> protocol remain the same.</p>
+<pre><code>ENV GRAPHENEDB_URL=&quot;http://172.25.0.2:7474&quot;
+</code></pre>
+
+<p>Save the changes made to the <code>Dockerfile</code> before proceeding.</p>
+<p><code>9.</code> Now use the <code>docker build</code> command to create an image from the <em>Dockerfile</em> and give the image a name.</p>
+<pre><code class="bash">$ docker build -t &lt;repo name&gt;:&lt;version&gt; .
+</code></pre>
+
+<p>e.g.</p>
+<pre><code class="bash">$ docker build -t aol:version8 .
+</code></pre>
+
+<p><code>10.</code> Now we will create the final docker container on the image created in step <code>9.</code> When we use the <code>docker run</code> command, an additional tag <code>--network=&lt;name&gt;</code> must be used as follows:</p>
+<pre><code class="bash">$ docker run -it -d --network=&lt;name of network&gt; --name=&lt;name for container&gt; -p 5000:5000 &lt;repo name&gt;:&lt;version&gt; python /home/Atlas_of_learning/run.py
+</code></pre>
+
+<p>e.g.</p>
+<pre><code class="bash">$ docker run -it -d --network=isolated_nw --name=AtlasLes10 -p 5000:5000 aol:version8 python /home/Atlas_of_learning/run.py
+</code></pre>
+
+<p><code>11.</code> Thats it! You are good to go! Just check if the final container is running along with the neo4j container on the same network using <code>docker network inspect</code>.
+e.g.</p>
+<pre><code class="bash">$ docker network inspect isolated_nw
+</code></pre>
+
+<p>You should be able to see something like this:</p>
+<p><img alt="inspect2" src="../inspect2.png" /></p>
+<p>In my case, I named the <strong>ATLAS</strong> container as <code>AtlasLes10</code>.</p>
+<p><code>12.</code> You can start using the app in your browser at <strong>localhost:5000</strong></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../license/" class="btn btn-neutral float-right" title="License">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../large/" class="btn btn-neutral" title="How does this app handle larger datasets?"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/SidShenoy/Atlas-of-Learning" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../large/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../license/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>
