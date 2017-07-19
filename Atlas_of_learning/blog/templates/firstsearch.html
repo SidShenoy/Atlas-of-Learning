@@ -1,0 +1,9 @@
+  <ul class="posts">
+  {% for row in parameter %}
+  		<li>
+    	<a href="{{ url_for('newsecondsearch', title=row.title) }}"><b>{{ row.title }}</b></a>
+
+   {% else %}
+    <li>No results!
+  {% endfor %}
+  </ul>

@@ -1,0 +1,49 @@
+/* We feel the names are self explanatory */
+
+.forZoom{
+  fill: none;
+  pointer-events: all;
+}
+
+.overlay{
+  position: absolute;
+  y: 25%;
+  x: 25%;
+  width: 50vw;
+  height: 62vh;
+  z-index: 10;
+  background-color: #FFDAB9;
+  display: none;
+}
+
+.degreeBox{
+  position: absolute;
+  y: 5%;
+  x: 85%;
+  width: 22vh;
+  height: 23vh;
+  z-index: 9;
+  background-color: #FFDAB9;
+}
+
+.off {
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+.on {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.iframe {
+  display: block;
+  border: none;
+  height: 50vh;
+  width: 100%;
+}
+
+.text{
+  font-family: sans-serif;
+  font-size: 14px;
+}

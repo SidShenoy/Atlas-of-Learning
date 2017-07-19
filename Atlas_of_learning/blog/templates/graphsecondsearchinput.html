@@ -1,0 +1,18 @@
+{% extends "graphlayout.html" %}
+{% block body %}
+
+{% if not session.username or session.username %}
+<h2>{{ title }}'s details</h2>
+<br>
+<form action="{{ url_for('graphsecondsearchcombo') }}" method="post">
+        <dl>
+            <dt>Search for LOs:</dt>
+            <dd><input type="text" size="30" name="title"></dd>
+        </dl>
+        <input type="submit" value="Submit">
+    </form>
+
+{% endif %}
+
+
+{% endblock %}

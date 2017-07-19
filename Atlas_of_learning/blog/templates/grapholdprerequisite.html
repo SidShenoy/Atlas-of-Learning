@@ -1,0 +1,12 @@
+  <ul class="posts">
+
+  {% for row in parameter2 %}
+  		<li>
+    	<b>{{ row.title }}</b>
+    	{% if session.username %}
+    	<a href="{{ url_for('graphdeleteconnection', title=row.title) }}"><b> Unmark this as a prerequisite</b></a>
+    	{%endif%}
+   {% else %}
+    <li>No prerequisites!
+  {% endfor %}
+  </ul>

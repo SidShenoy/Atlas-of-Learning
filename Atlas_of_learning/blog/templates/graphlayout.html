@@ -1,0 +1,19 @@
+<!doctype html>
+<title>Gnowledge Atlas of Learning</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+<div class="page">
+  <h1>Atlas of Learning</h1>
+  <div class="metanav">
+  {% if session.username %}
+  Logged in as {{ session.username }}
+  {% endif %}
+  {% if session.username %}
+    <a href="{{ url_for('graphindex') }}">Add LO</a>
+    <a href="{{ url_for('tgraphsecondsearch') }}">Search</a>
+  {% endif %}
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+</div>

@@ -1,0 +1,16 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/graph.css') }}">
+</head>
+<body>
+<label for="graphCheckBox">Graph</label>
+<input id="graphCheckBox" type="checkbox" checked="true"></input>
+<svg width="960" height="600"></svg>
+
+<script src="{{ url_for('static', filename='js/d3/d3.v3.min.js') }}"></script>  <!-- This is for using d3 -->
+<script src="{{ url_for('static', filename='js/jQuery/jquery-3.2.1.min.js') }}"></script>  <!-- This is for using jQuery -->
+<script> let dataset={{ppar|tojson}}; </script>
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>  <!-- This is for loading the main script -->
+</body>
+</html>

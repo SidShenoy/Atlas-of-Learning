@@ -1,0 +1,23 @@
+{% extends "layouti.html" %}
+{% block body %}
+
+
+{% if session.title %}
+    {% if parameter %}
+    <h3> Results: </h3>
+    {% include "firstsearch.html" %}
+    {%endif%}
+{% endif %}
+
+{% if ppar %}
+     <form action="{{ url_for('changedegree') }}" method="post">
+        <dl>
+            <dt text-align:"center" margin:"auto">Degree  <input type="text" size="30" name="degree" ></dt>
+        </dl>
+        <input type="submit" value="Submit">
+    </form>
+    {% include "graphextended.html" %}
+{% endif %}
+
+
+{% endblock %}
