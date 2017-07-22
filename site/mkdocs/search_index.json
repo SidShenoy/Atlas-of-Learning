@@ -1,0 +1,129 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Welcome to 'Atlas of Learning' Documentation\n\n\nThe GitHub repository for this project can be viewed \nhere\n.\n\n\n\n\nFeatures of the graph\n\n\n\n\nHover fade.\n\n\nHover highlight.\n\n\nDrag and drop.\n\n\nSingle-click to open an overlay in the current node's context.\n\n\nDouble-click for centre alignment of the current node.\n\n\nHover content box.\n\n\nZoom in/out and pan checkbox.\n\n\nCheckbox to show/hide graph.\n\n\nAbility to change the global degree of all nodes (number of levels that will get highlighted upon hover).\n\n\n\n\nTo check out a live example, click \nhere\n.\n\n\nConfigurations (recommended and preferably should not be changed)\n\n\n\n\n\n\nSingle-click and double-click are distinguished by a 500 msec time-gap between successive clicks( \n 500 for double-click,\n 500 for single-click).\n\n\n\n\n\n\nSingle-click and drag-drop are also distinguished by a similar time-gap as above. This means that if a user drags and drops a node in less than 500 msec, then it is considered a 'single-click' event.\n\n\n\n\n\n\nTo complete a single 'mouseover' and 'mouseleave' successive pair event, a time-gap of 100 msec is used. This means that a 2 successive mouse-hovers on 2 different nodes will take place with the expected behaviour only if they differ by 100 msec. If not, unexpected behaviour may take place and the user is advised to refresh the page.", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#welcome-to-atlas-of-learning-documentation", 
+            "text": "The GitHub repository for this project can be viewed  here .", 
+            "title": "Welcome to 'Atlas of Learning' Documentation"
+        }, 
+        {
+            "location": "/#features-of-the-graph", 
+            "text": "Hover fade.  Hover highlight.  Drag and drop.  Single-click to open an overlay in the current node's context.  Double-click for centre alignment of the current node.  Hover content box.  Zoom in/out and pan checkbox.  Checkbox to show/hide graph.  Ability to change the global degree of all nodes (number of levels that will get highlighted upon hover).   To check out a live example, click  here .", 
+            "title": "Features of the graph"
+        }, 
+        {
+            "location": "/#configurations-recommended-and-preferably-should-not-be-changed", 
+            "text": "Single-click and double-click are distinguished by a 500 msec time-gap between successive clicks(   500 for double-click,  500 for single-click).    Single-click and drag-drop are also distinguished by a similar time-gap as above. This means that if a user drags and drops a node in less than 500 msec, then it is considered a 'single-click' event.    To complete a single 'mouseover' and 'mouseleave' successive pair event, a time-gap of 100 msec is used. This means that a 2 successive mouse-hovers on 2 different nodes will take place with the expected behaviour only if they differ by 100 msec. If not, unexpected behaviour may take place and the user is advised to refresh the page.", 
+            "title": "Configurations (recommended and preferably should not be changed)"
+        }, 
+        {
+            "location": "/about/", 
+            "text": "About AOL\n\n\nWhy was this project undertaken?\n\n\nThe representation of knowledge has been in structures varying from linear to a hierarchy but the assumption of knowledge being connected as a \nnetwork\n has not been questioned by the conventional modes of teaching. Deeply ingrained system of formal education adds to the difficulty to change the presentation of knowledge. The network consisting of learning objectives is connected to others by edges called as prerequisites. The prerequisites are \nuni directional\n i.e. the edges start from one node and point to the learning objectives which can be further studied after the current objective. Since the edges are unidirectional, the graph formed from the representation is a \ndirected network graph\n. The directed component of the graph allows the graph to be separated into \nlayers\n, based on the level of prerequisites required. This allows us to measure the width and depth of knowledge as a whole which then helps us in mapping an atlas consisting of knowledge points.", 
+            "title": "About"
+        }, 
+        {
+            "location": "/about/#about-aol", 
+            "text": "", 
+            "title": "About AOL"
+        }, 
+        {
+            "location": "/about/#why-was-this-project-undertaken", 
+            "text": "The representation of knowledge has been in structures varying from linear to a hierarchy but the assumption of knowledge being connected as a  network  has not been questioned by the conventional modes of teaching. Deeply ingrained system of formal education adds to the difficulty to change the presentation of knowledge. The network consisting of learning objectives is connected to others by edges called as prerequisites. The prerequisites are  uni directional  i.e. the edges start from one node and point to the learning objectives which can be further studied after the current objective. Since the edges are unidirectional, the graph formed from the representation is a  directed network graph . The directed component of the graph allows the graph to be separated into  layers , based on the level of prerequisites required. This allows us to measure the width and depth of knowledge as a whole which then helps us in mapping an atlas consisting of knowledge points.", 
+            "title": "Why was this project undertaken?"
+        }, 
+        {
+            "location": "/defaults/", 
+            "text": "Default Settings\n\n\nCircular Nodes\n\n\n\n\nThe default color of \nLO\n (Learning Objective) nodes is \nRED\n.\n\n\nThe default color of \nResource\n (currently inexistent) nodes is \nGREY\n.\n\n\nThe default radius of \nLO\n nodes is 18px.\n\n\n\n\nThese are the basic features the user is likely to change, other features can be changed by visiting lines starting form line number 29-31 and 98-105 of 'custom.js' file\n\n\nfunction getNodeColor(node) {\n  return node.level === 1 ? 'red' : 'gray' //change these 2 colors as needed\n}\n\n\n\n\nvar nodeElements = svg.append(\ng\n)\n  .attr(\nclass\n, \nnodes\n)\n  .selectAll(\ncircle\n)\n  .data(dataset.nodes)\n  .enter().append(\ncircle\n)\n    .attr(\nr\n,18) //default radius can be changed here\n    .attr(\nfill\n, getNodeColor) //this is the color function as given above\n    .attr(\ndata-orgcolor\n,getNodeColor)\n\n\n\n\nLinks (edges)\n\n\n\n\nThe default \nline width\n (stroke-width) of the links is 2px.\n\n\nThe default \ncolor\n (stroke-width) of the links is \nGREY\n.\n\n\n\n\nThese are the basic features the user is likely to change, other features can be changed by visiting lines starting form line number 84-91 of 'custom.js' file\n\n\nvar linkElements = svg.append(\ng\n)\n  .attr(\nclass\n, \nlinks\n)\n  .selectAll(\nline\n)\n  .data(dataset.links)\n  .enter().append(\nline\n)\n    .attr(\nstroke-width\n,2) //change the width here\n    .attr(\nstroke\n,\nrgba(50, 50, 50, 0.2)\n)//change the color here\n    .attr(\ndata-orgcolor\n,\nrgba(50, 50, 50, 0.2)\n)//also change the color here(to same as above)\n\n\n\n\nDegree box\n\n\nThis is the box seen at the top-right side of the node.\n\n\nThe default settings can be changed by visiting line numbers 19-27 in the 'custom.css' file.\n\n\n.degreeBox{\n  position: absolute;\n  y: 5%;\n  x: 85%;\n  width: 22vh;\n  height: 23vh;\n  z-index: 9;\n  background-color: #FFDAB9;\n}\n\n\n\n\nOverlay\n\n\nThis is the overlay box that appears when the any node is single-clicked.\n\n\nThe default settings can be changed by visiting line numbers 8-17 in the 'custom.css' file.\n\n\n.overlay{\n  position: absolute;\n  y: 25%;\n  x: 25%;\n  width: 50vw;\n  height: 62vh;\n  z-index: 10;\n  background-color: #FFDAB9;\n  display: none;\n}\n\n\n\n\nThe box mentioned above contains an \niframe\n, the default settings for this can be changed by visiting lines 39-44 of the 'custom.css' file.\n\n\n.iframe {\n  display: block;\n  border: none;\n  height: 50vh;\n  width: 100%;\n}", 
+            "title": "Defaults (Appearance)"
+        }, 
+        {
+            "location": "/defaults/#default-settings", 
+            "text": "", 
+            "title": "Default Settings"
+        }, 
+        {
+            "location": "/defaults/#circular-nodes", 
+            "text": "The default color of  LO  (Learning Objective) nodes is  RED .  The default color of  Resource  (currently inexistent) nodes is  GREY .  The default radius of  LO  nodes is 18px.   These are the basic features the user is likely to change, other features can be changed by visiting lines starting form line number 29-31 and 98-105 of 'custom.js' file  function getNodeColor(node) {\n  return node.level === 1 ? 'red' : 'gray' //change these 2 colors as needed\n}  var nodeElements = svg.append( g )\n  .attr( class ,  nodes )\n  .selectAll( circle )\n  .data(dataset.nodes)\n  .enter().append( circle )\n    .attr( r ,18) //default radius can be changed here\n    .attr( fill , getNodeColor) //this is the color function as given above\n    .attr( data-orgcolor ,getNodeColor)", 
+            "title": "Circular Nodes"
+        }, 
+        {
+            "location": "/defaults/#links-edges", 
+            "text": "The default  line width  (stroke-width) of the links is 2px.  The default  color  (stroke-width) of the links is  GREY .   These are the basic features the user is likely to change, other features can be changed by visiting lines starting form line number 84-91 of 'custom.js' file  var linkElements = svg.append( g )\n  .attr( class ,  links )\n  .selectAll( line )\n  .data(dataset.links)\n  .enter().append( line )\n    .attr( stroke-width ,2) //change the width here\n    .attr( stroke , rgba(50, 50, 50, 0.2) )//change the color here\n    .attr( data-orgcolor , rgba(50, 50, 50, 0.2) )//also change the color here(to same as above)", 
+            "title": "Links (edges)"
+        }, 
+        {
+            "location": "/defaults/#degree-box", 
+            "text": "This is the box seen at the top-right side of the node.  The default settings can be changed by visiting line numbers 19-27 in the 'custom.css' file.  .degreeBox{\n  position: absolute;\n  y: 5%;\n  x: 85%;\n  width: 22vh;\n  height: 23vh;\n  z-index: 9;\n  background-color: #FFDAB9;\n}", 
+            "title": "Degree box"
+        }, 
+        {
+            "location": "/defaults/#overlay", 
+            "text": "This is the overlay box that appears when the any node is single-clicked.  The default settings can be changed by visiting line numbers 8-17 in the 'custom.css' file.  .overlay{\n  position: absolute;\n  y: 25%;\n  x: 25%;\n  width: 50vw;\n  height: 62vh;\n  z-index: 10;\n  background-color: #FFDAB9;\n  display: none;\n}  The box mentioned above contains an  iframe , the default settings for this can be changed by visiting lines 39-44 of the 'custom.css' file.  .iframe {\n  display: block;\n  border: none;\n  height: 50vh;\n  width: 100%;\n}", 
+            "title": "Overlay"
+        }, 
+        {
+            "location": "/force/", 
+            "text": "Default Settings for Force Algorithm\n\n\n\n\nDefault distance between two linked nodes is 60px.\n\n\nDefault repulsive force is decided by the charge on the individual nodes which is -500 units.\n\n\nDefault gravitational focus is at [width,height] of the viewport.\n\n\nDefault dragging of the nodes is smooth as friction is zero.\n\n\n\n\nAll of these can be changed by visiting lines 69-76 of the 'custom.js' file.\n\n\nvar force = d3.layout.force()\n                .nodes(dataset.nodes)\n                .links(dataset.links)\n                .linkDistance(60)\n                //.friction(0.5)\n                .charge(-500)\n                .size([width, height])\n                .start();", 
+            "title": "Defaults (Force Algorithm)"
+        }, 
+        {
+            "location": "/force/#default-settings-for-force-algorithm", 
+            "text": "Default distance between two linked nodes is 60px.  Default repulsive force is decided by the charge on the individual nodes which is -500 units.  Default gravitational focus is at [width,height] of the viewport.  Default dragging of the nodes is smooth as friction is zero.   All of these can be changed by visiting lines 69-76 of the 'custom.js' file.  var force = d3.layout.force()\n                .nodes(dataset.nodes)\n                .links(dataset.links)\n                .linkDistance(60)\n                //.friction(0.5)\n                .charge(-500)\n                .size([width, height])\n                .start();", 
+            "title": "Default Settings for Force Algorithm"
+        }, 
+        {
+            "location": "/howToUse/", 
+            "text": "How to use this app?\n\n\nWhat are the types of nodes and links?\n\n\n\n\nThere is 1 kind of node: LO (red).\n\n\nThere is 1 kind of link: Is_Prerequisite (grey).\n\n\n\u2018Is_Prerequisite\u2019 link exists between 2 LOs.\n\n\nOnly 1 link can exist at most between any 2 nodes.\n\n\n\n\nHere is an example\n\n\n\nHow to interpret the graph?\n\n\n\n\n\u2018LOs\u2019 are represented by individual nodes (circles) having \u2018RED\u2019 color.\n\n\n\n\n\n\n\n\n\u2018Prerequisite\u2019 links are represented by edges (lines) having \u2018GREY\u2019 color.\n\n\n\n\n\n\n\n\nWhen a node is hovered upon, depending on the current degree, all \u2018links\u2019 are highlighted with \u2018BLUE\u2019 color (here current node is \u2018LIN\u2019). The prerequisite LOs retain their \u2018RED\u2019 color.\n\n\n\n\nDegree is nothing but the number of \nlower levels\n (of prerequisites) of the current node that are highlighted.\n\n\nDegree is 1\n\n\n\n\nDegree is 2", 
+            "title": "How to use the app?"
+        }, 
+        {
+            "location": "/howToUse/#how-to-use-this-app", 
+            "text": "", 
+            "title": "How to use this app?"
+        }, 
+        {
+            "location": "/howToUse/#what-are-the-types-of-nodes-and-links", 
+            "text": "There is 1 kind of node: LO (red).  There is 1 kind of link: Is_Prerequisite (grey).  \u2018Is_Prerequisite\u2019 link exists between 2 LOs.  Only 1 link can exist at most between any 2 nodes.   Here is an example", 
+            "title": "What are the types of nodes and links?"
+        }, 
+        {
+            "location": "/howToUse/#how-to-interpret-the-graph", 
+            "text": "\u2018LOs\u2019 are represented by individual nodes (circles) having \u2018RED\u2019 color.     \u2018Prerequisite\u2019 links are represented by edges (lines) having \u2018GREY\u2019 color.     When a node is hovered upon, depending on the current degree, all \u2018links\u2019 are highlighted with \u2018BLUE\u2019 color (here current node is \u2018LIN\u2019). The prerequisite LOs retain their \u2018RED\u2019 color.   Degree is nothing but the number of  lower levels  (of prerequisites) of the current node that are highlighted.  Degree is 1   Degree is 2", 
+            "title": "How to interpret the graph?"
+        }, 
+        {
+            "location": "/large/", 
+            "text": "We have tried out larger datasets\n\n\nHere is an example of Khan Academy data\n\n\nThis data involved over 5000 nodes.", 
+            "title": "How does this app handle larger datasets?"
+        }, 
+        {
+            "location": "/large/#we-have-tried-out-larger-datasets", 
+            "text": "Here is an example of Khan Academy data  This data involved over 5000 nodes.", 
+            "title": "We have tried out larger datasets"
+        }, 
+        {
+            "location": "/installation/", 
+            "text": "Installation steps using docker\n\n\n1.\n First, make sure docker is installed. If not click \nhere\n\n\n2.\n Now, create a new \ndocker network\n using the following command:\n\n\n$ docker network create -d bridge \nname of network\n\n\n\n\n\ne.g.\n\n\n$ docker network create -d bridge isolated_nw\n\n\n\n\n3.\n Download the \nneo4j\n image and run a container on it.\n\n\ne.g. Let the name of the container be 'neo4jCon'\n\n\n4.\n Add the container to the network created in step \n2.\n using\n\n\n$ docker network connect \nname of network\n \nname of container\n\n\n\n\n\ne.g.\n\n\n$ docker network connect isolated_nw neo4jCon\n\n\n\n\n5.\n Check if the container was successfully added to the network using\n\n\n$ docker network inspect \nname of network\n\n\n\n\n\ne.g.\n\n\n$ docker network inspect isolated_nw\n\n\n\n\nSomething like the following should be displayed to indicate successful addition:\n\n\n\n\nIn my case, I named the \nneo4j\n container as \nArnold5\n.\n\n\nMake a note of the \nIPv4Address\n of the added container, in the above case, it is \n172.25.0.2\n. The \n/16\n can be ignored.\n\n\n6.\n Create a new folder anywhere on your file system. Go to that folder using \ncd\n.\n\n\n7.\n Inside the new folder paste the \nDockerfile\n along with the actual project folder, which is \nAtlas of Learning\n\n\nNow when \nls\n is executed you should be able to see that there is one folder named \nAtlas of Learning\n and a file named \nDockerfile\n.\n\n\n8.\n Your neo4j container will serve a neo4j database. This database has a \nUSERNAME\n and \nPASSWORD\n.\n\n\nChange these 2 values in the \nDockerfile\n in lines 8 and 9.\nIn my case they were 'neo4j' and 'HBCSE' respectively.\n\n\nENV NEO4J_USERNAME=neo4j\nENV NEO4J_PASSWORD=HBCSE\n\n\n\n\nAlso take the \nIPv4Address\n we got in step \n5.\n and change the value in line 9.\nAppend the port \n:7474\n to the above \nIP\n.\n\n\ne.g. In my case it was \n172.25.0.2\n. And after appending the final value is \n172.25.0.2:7474\n. Let the \nhttp://\n protocol remain the same.\n\n\nENV GRAPHENEDB_URL=\nhttp://172.25.0.2:7474\n\n\n\n\n\nSave the changes made to the \nDockerfile\n before proceeding.\n\n\n9.\n Now use the \ndocker build\n command to create an image from the \nDockerfile\n and give the image a name.\n\n\n$ docker build -t \nrepo name\n:\nversion\n .\n\n\n\n\ne.g.\n\n\n$ docker build -t aol:version8 .\n\n\n\n\n10.\n Now we will create the final docker container on the image created in step \n9.\n When we use the \ndocker run\n command, an additional tag \n--network=\nname\n must be used as follows:\n\n\n$ docker run -it -d --network=\nname of network\n --name=\nname for container\n -p 5000:5000 \nrepo name\n:\nversion\n python /home/Atlas_of_learning/run.py\n\n\n\n\ne.g.\n\n\n$ docker run -it -d --network=isolated_nw --name=AtlasLes10 -p 5000:5000 aol:version8 python /home/Atlas_of_learning/run.py\n\n\n\n\n11.\n Thats it! You are good to go! Just check if the final container is running along with the neo4j container on the same network using \ndocker network inspect\n.\ne.g.\n\n\n$ docker network inspect isolated_nw\n\n\n\n\nYou should be able to see something like this:\n\n\n\n\nIn my case, I named the \nATLAS\n container as \nAtlasLes10\n.\n\n\n12.\n You can start using the app in your browser at \nlocalhost:5000", 
+            "title": "Installation Steps"
+        }, 
+        {
+            "location": "/installation/#installation-steps-using-docker", 
+            "text": "1.  First, make sure docker is installed. If not click  here  2.  Now, create a new  docker network  using the following command:  $ docker network create -d bridge  name of network   e.g.  $ docker network create -d bridge isolated_nw  3.  Download the  neo4j  image and run a container on it.  e.g. Let the name of the container be 'neo4jCon'  4.  Add the container to the network created in step  2.  using  $ docker network connect  name of network   name of container   e.g.  $ docker network connect isolated_nw neo4jCon  5.  Check if the container was successfully added to the network using  $ docker network inspect  name of network   e.g.  $ docker network inspect isolated_nw  Something like the following should be displayed to indicate successful addition:   In my case, I named the  neo4j  container as  Arnold5 .  Make a note of the  IPv4Address  of the added container, in the above case, it is  172.25.0.2 . The  /16  can be ignored.  6.  Create a new folder anywhere on your file system. Go to that folder using  cd .  7.  Inside the new folder paste the  Dockerfile  along with the actual project folder, which is  Atlas of Learning  Now when  ls  is executed you should be able to see that there is one folder named  Atlas of Learning  and a file named  Dockerfile .  8.  Your neo4j container will serve a neo4j database. This database has a  USERNAME  and  PASSWORD .  Change these 2 values in the  Dockerfile  in lines 8 and 9.\nIn my case they were 'neo4j' and 'HBCSE' respectively.  ENV NEO4J_USERNAME=neo4j\nENV NEO4J_PASSWORD=HBCSE  Also take the  IPv4Address  we got in step  5.  and change the value in line 9.\nAppend the port  :7474  to the above  IP .  e.g. In my case it was  172.25.0.2 . And after appending the final value is  172.25.0.2:7474 . Let the  http://  protocol remain the same.  ENV GRAPHENEDB_URL= http://172.25.0.2:7474   Save the changes made to the  Dockerfile  before proceeding.  9.  Now use the  docker build  command to create an image from the  Dockerfile  and give the image a name.  $ docker build -t  repo name : version  .  e.g.  $ docker build -t aol:version8 .  10.  Now we will create the final docker container on the image created in step  9.  When we use the  docker run  command, an additional tag  --network= name  must be used as follows:  $ docker run -it -d --network= name of network  --name= name for container  -p 5000:5000  repo name : version  python /home/Atlas_of_learning/run.py  e.g.  $ docker run -it -d --network=isolated_nw --name=AtlasLes10 -p 5000:5000 aol:version8 python /home/Atlas_of_learning/run.py  11.  Thats it! You are good to go! Just check if the final container is running along with the neo4j container on the same network using  docker network inspect .\ne.g.  $ docker network inspect isolated_nw  You should be able to see something like this:   In my case, I named the  ATLAS  container as  AtlasLes10 .  12.  You can start using the app in your browser at  localhost:5000", 
+            "title": "Installation steps using docker"
+        }, 
+        {
+            "location": "/license/", 
+            "text": "License\n\n\nThe legal stuff\n\n\nWe support GNU Affero General Public License v3.0.\n\n\nThe license can be viewed \nhere", 
+            "title": "License"
+        }, 
+        {
+            "location": "/license/#license", 
+            "text": "The legal stuff  We support GNU Affero General Public License v3.0.  The license can be viewed  here", 
+            "title": "License"
+        }
+    ]
+}

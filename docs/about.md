@@ -1,0 +1,5 @@
+# About AOL
+
+## Why was this project undertaken?
+
+The representation of knowledge has been in structures varying from linear to a hierarchy but the assumption of knowledge being connected as a *network* has not been questioned by the conventional modes of teaching. Deeply ingrained system of formal education adds to the difficulty to change the presentation of knowledge. The network consisting of learning objectives is connected to others by edges called as prerequisites. The prerequisites are **uni directional** i.e. the edges start from one node and point to the learning objectives which can be further studied after the current objective. Since the edges are unidirectional, the graph formed from the representation is a **directed network graph**. The directed component of the graph allows the graph to be separated into **layers**, based on the level of prerequisites required. This allows us to measure the width and depth of knowledge as a whole which then helps us in mapping an atlas consisting of knowledge points.

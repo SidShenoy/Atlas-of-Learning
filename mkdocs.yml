@@ -1,0 +1,14 @@
+site_name: Atlas of Learning
+site_favicon: favicon.ico
+repo_url: https://github.com/SidShenoy/Atlas-of-Learning
+site_author: Siddhant Shenoy
+pages:
+    - Home: index.md
+    - About: about.md
+    - Defaults (Appearance): defaults.md
+    - Defaults (Force Algorithm): force.md
+    - How to use the app?: howToUse.md
+    - How does this app handle larger datasets?: large.md
+    - Installation Steps: installation.md
+    - License: license.md
+theme: readthedocs

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Siddhant Shenoy">
+  <link rel="shortcut icon" href="../favicon.ico">
+  
+  <title>Defaults (Appearance) - Atlas of Learning</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Defaults (Appearance)";
+    var mkdocs_page_input_path = "defaults.md";
+    var mkdocs_page_url = "/defaults/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Atlas of Learning</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">About</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Defaults (Appearance)</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#default-settings">Default Settings</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#circular-nodes">Circular Nodes</a></li>
+        
+            <li><a class="toctree-l3" href="#links-edges">Links (edges)</a></li>
+        
+            <li><a class="toctree-l3" href="#degree-box">Degree box</a></li>
+        
+            <li><a class="toctree-l3" href="#overlay">Overlay</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../force/">Defaults (Force Algorithm)</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../howToUse/">How to use the app?</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../large/">How does this app handle larger datasets?</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../installation/">Installation Steps</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../license/">License</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Atlas of Learning</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Defaults (Appearance)</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/SidShenoy/Atlas-of-Learning/edit/master/docs/defaults.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="default-settings">Default Settings</h1>
+<h4 id="circular-nodes">Circular Nodes</h4>
+<ol>
+<li>The default color of <em>LO</em> (Learning Objective) nodes is <em>RED</em>.</li>
+<li>The default color of <em>Resource</em> (currently inexistent) nodes is <em>GREY</em>.</li>
+<li>The default radius of <em>LO</em> nodes is 18px.</li>
+</ol>
+<p>These are the basic features the user is likely to change, other features can be changed by visiting lines starting form line number 29-31 and 98-105 of 'custom.js' file</p>
+<pre><code class="javascript">function getNodeColor(node) {
+  return node.level === 1 ? 'red' : 'gray' //change these 2 colors as needed
+}
+</code></pre>
+
+<pre><code class="javascript">var nodeElements = svg.append(&quot;g&quot;)
+  .attr(&quot;class&quot;, &quot;nodes&quot;)
+  .selectAll(&quot;circle&quot;)
+  .data(dataset.nodes)
+  .enter().append(&quot;circle&quot;)
+    .attr(&quot;r&quot;,18) //default radius can be changed here
+    .attr(&quot;fill&quot;, getNodeColor) //this is the color function as given above
+    .attr(&quot;data-orgcolor&quot;,getNodeColor)
+</code></pre>
+
+<h4 id="links-edges">Links (edges)</h4>
+<ol>
+<li>The default <em>line width</em> (stroke-width) of the links is 2px.</li>
+<li>The default <em>color</em> (stroke-width) of the links is <em>GREY</em>.</li>
+</ol>
+<p>These are the basic features the user is likely to change, other features can be changed by visiting lines starting form line number 84-91 of 'custom.js' file</p>
+<pre><code class="javascript">var linkElements = svg.append(&quot;g&quot;)
+  .attr(&quot;class&quot;, &quot;links&quot;)
+  .selectAll(&quot;line&quot;)
+  .data(dataset.links)
+  .enter().append(&quot;line&quot;)
+    .attr(&quot;stroke-width&quot;,2) //change the width here
+    .attr(&quot;stroke&quot;,&quot;rgba(50, 50, 50, 0.2)&quot;)//change the color here
+    .attr(&quot;data-orgcolor&quot;,&quot;rgba(50, 50, 50, 0.2)&quot;)//also change the color here(to same as above)
+</code></pre>
+
+<h3 id="degree-box">Degree box</h3>
+<p>This is the box seen at the top-right side of the node.</p>
+<p>The default settings can be changed by visiting line numbers 19-27 in the 'custom.css' file.</p>
+<pre><code class="css">.degreeBox{
+  position: absolute;
+  y: 5%;
+  x: 85%;
+  width: 22vh;
+  height: 23vh;
+  z-index: 9;
+  background-color: #FFDAB9;
+}
+</code></pre>
+
+<h3 id="overlay">Overlay</h3>
+<p>This is the overlay box that appears when the any node is single-clicked.</p>
+<p>The default settings can be changed by visiting line numbers 8-17 in the 'custom.css' file.</p>
+<pre><code class="css">.overlay{
+  position: absolute;
+  y: 25%;
+  x: 25%;
+  width: 50vw;
+  height: 62vh;
+  z-index: 10;
+  background-color: #FFDAB9;
+  display: none;
+}
+</code></pre>
+
+<p>The box mentioned above contains an <em>iframe</em>, the default settings for this can be changed by visiting lines 39-44 of the 'custom.css' file.</p>
+<pre><code class="css">.iframe {
+  display: block;
+  border: none;
+  height: 50vh;
+  width: 100%;
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../force/" class="btn btn-neutral float-right" title="Defaults (Force Algorithm)">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../about/" class="btn btn-neutral" title="About"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/SidShenoy/Atlas-of-Learning" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../about/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../force/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>
